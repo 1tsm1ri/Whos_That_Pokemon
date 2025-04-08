@@ -1,0 +1,28 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.container {
+  text-align: center;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+img {
+  margin: 2rem;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: filter 0.5s ease;
+}
+
+.silhouette {
+  filter: brightness(0) saturate(100%);
+}
+
+.revealed {
+  filter: none;
+}
