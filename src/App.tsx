@@ -14,17 +14,22 @@ function App() {
 
   const getPokemon = async () => {
     const res = await getRandomPokemon();
-    setPokemon({ name: res.name, image: res.image });
+    setPokemon ({ 
+      name: res.name, 
+      image: res.image 
+    });
     setUserGuess("");
     setRevealed(false);
     setMessage("");
   };
 
   const handleGuess = () => {
-    const normalizedGuess = userGuess.trim().toLowerCase();
-    const normalizedName = pokemon.name.trim().toLowerCase();
+    if (revealed) return;
 
-    if (normalizedGuess === normalizedName) {
+    const guessName = userGuess.trim().toLowerCase();
+    const correctName = pokemon.name.trim().toLowerCase();
+
+    if (guessName === correctName) {
       setMessage(`Correct! It's ${pokemon.name}`);
       setRevealed(true);
       setScore((prev) => prev + 1);
@@ -63,8 +68,11 @@ function App() {
           value={userGuess}
           onChange={handleInput}
         />
-        <button onClick={handleGuess}>Guess!</button>
-        <button onClick={getPokemon}>New Pokémon</button>
+      </div>
+
+      <div>
+        <button className="New" onClick={getPokemon}>New Pokémon</button>
+        <button className="Guess" onClick={handleGuess} disabled={revealed}>Guess Pokémon!</button>
       </div>
 
       <p>{message}</p>

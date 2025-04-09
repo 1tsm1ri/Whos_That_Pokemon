@@ -22,8 +22,7 @@ h1 {
 }
 
 button {
-  background-color: #3b1414;
-  border: none;
+  border: solid #3b1414;
   padding: 0.625rem 1rem;
   margin: 0.3125rem;
   font-size: 1rem;
@@ -33,17 +32,37 @@ button {
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
 }
 
-button:hover {
+
+button.New {
+  background-color: #311212;
+}
+
+button.Guess {
+  background-color: #5d1010;
+}
+
+button:disabled {
+  border: solid #1d0808;
+  padding: 0.5rem 0.5rem;
+  background-color: #120505;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  transition: none;
+}
+
+button:hover:enabled {
   background-color: #721515;
   transform: scale(1.05);
 }
 
 input {
-  border: 2px solid #ccc;
+  border: 2px solid #3b1414;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   margin-right: 1rem;
+  margin-left: 1rem;
   margin-bottom: 1rem;
   width: 12.5rem;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -53,7 +72,7 @@ input {
 
 input:focus {
   border-color: #3b1414;;
-  box-shadow: 0 0 0 4px rgba(42, 8, 8, 0.2);
+  box-shadow: 0 0 0 5px rgba(42, 8, 8, 0.2);
 }
 
 
