@@ -1,12 +1,12 @@
 @font-face {
   font-family: "Pokemon" ;
-  src: url(/src/assets/Pokemon\ Solid.ttf) format(OpenType);
+  src: url(/public/fonts/Pokemon\ Solid.ttf) format(OpenType);
   font-weight: 100;
 }
 
 @font-face {
   font-family: "Fredoka" ;
-  src: url(/src/assets/Fredoka-VariableFont_wdth\,wght.ttf) format(OpenType);
+  src: url(/public/fonts/Fredoka-VariableFont_wdth\,wght.ttf) format(OpenType);
   font-weight: 700;
 }
 
