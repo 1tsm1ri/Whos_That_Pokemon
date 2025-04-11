@@ -30,6 +30,16 @@ function App() {
   };
 
 
+  const successMessages = [
+    "Gotta catch 'em all!",
+    "You're super effective!",
+    "Ash would be proud!",
+    "Trainer instincts never fail!",
+    "That Pokémon is yours!",
+    "That’s how a true Trainer does it!",
+  ];
+
+
   const handleGuess = () => {
     if (revealed) return;
 
@@ -37,7 +47,8 @@ function App() {
     const correctName = pokemon.name.trim().toLowerCase();
 
     if (guessName === correctName) {
-      setMessage(`Correct! It's ${pokemon.name}`);
+      const randomMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
+      setMessage(`Correct! ${randomMessage}`);
       setRevealed(true);
       setScore((prev) => prev + 1);
       correctSound.play();
@@ -54,6 +65,7 @@ function App() {
     setUserGuess(e.target.value);
   };
 
+
   const giveHint = () => {
     if (hintCount < 3) {
       const nextHintIndex = hintCount;
@@ -69,8 +81,8 @@ function App() {
 
     } else if (hintCount === 3 && !revealed) {
       setRevealed(true);
-      setHintCount(hintCount + 1); // Ya no se podrá usar más
-      setMessage(`It was ${pokemon.name}! Score -1`);
+      setHintCount(hintCount + 1);
+      setMessage(`Pokémon revealed! Score -1`);
 
       if (score > 0) setScore((prev) => prev - 1);
       wrongSound.play();
@@ -98,7 +110,7 @@ function App() {
 
         <p>
           {revealed
-            ? <>Pokémon: {pokemon.name}</>
+            ? <>Pokémon: <span>{pokemon.name}</span> </>
             : <>Hint: {hintedName.split("").join(" ")}</>}
         </p>
 
