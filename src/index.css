@@ -1,80 +1,68 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@font-face {
+  font-family: "Pokemon" ;
+  src: url(/src/assets/Pokemon\ Solid.ttf) format(OpenType);
+  font-weight: 100;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@font-face {
+  font-family: "Fredoka" ;
+  src: url(/src/assets/Fredoka-VariableFont_wdth\,wght.ttf) format(OpenType);
+  font-weight: 700;
 }
 
 body {
+  background-image:linear-gradient(
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.5),
+    rgba(0,0,0,0.7)
+  ),
+  url('/src/assets/background.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  height: 100vh;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #242424;
+  font-family: 'Fredoka', sans-serif;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
-button {
-  border: solid #3b1414;
-  padding: 0.625rem 1rem;
-  margin: 0.3125rem;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
-
-button.New {
-  background-color: #311212;
-}
-
-button.Guess {
-  background-color: #5d1010;
-}
-
-button:disabled {
-  border: solid #1d0808;
-  padding: 0.5rem 0.5rem;
-  background-color: #120505;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-  transition: none;
-}
-
-button:hover:enabled {
-  background-color: #721515;
-  transform: scale(1.05);
-}
-
-input {
-  border: 2px solid #3b1414;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
-  margin-bottom: 1rem;
-  width: 12.5rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  outline: none;
-  background-color: #000000;
-}
-
-input:focus {
-  border-color: #3b1414;;
-  box-shadow: 0 0 0 5px rgba(42, 8, 8, 0.2);
+img {
+  max-width: 100%;
+  max-height: 37%;
+  object-fit: contain;
 }
 
 
+.silhouette {
+  filter: brightness(0) saturate(100%);
+}
 
+.revealed {
+  filter: none;
+}
 

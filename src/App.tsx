@@ -2,26 +2,33 @@ import { useEffect, useState } from "react";
 import { getRandomPokemon } from "./services/pokemonapi";
 import "./App.css";
 
+
 function App() {
   const [pokemon, setPokemon] = useState({ name: "", image: "" });
   const [userGuess, setUserGuess] = useState("");
   const [revealed, setRevealed] = useState(false);
   const [message, setMessage] = useState("");
   const [score, setScore] = useState(0);
+  const [hintCount, setHintCount] = useState(0);
+  const [hintedName, setHintedName] = useState("");
 
   const correctSound = new Audio("/sounds/correct.mp3");
   const wrongSound = new Audio("/sounds/wrong.mp3");
 
+
   const getPokemon = async () => {
     const res = await getRandomPokemon();
-    setPokemon ({ 
+    setPokemon({ 
       name: res.name, 
       image: res.image 
     });
     setUserGuess("");
     setRevealed(false);
     setMessage("");
+    setHintCount(0);
+    setHintedName("_".repeat(res.name.length));
   };
+
 
   const handleGuess = () => {
     if (revealed) return;
@@ -34,48 +41,82 @@ function App() {
       setRevealed(true);
       setScore((prev) => prev + 1);
       correctSound.play();
-      
+
     } else {
-      setMessage("Wrong! Score reset to 0.");
+      setMessage(`Wrong! Score reset to 0.`);
       setScore(0);
       wrongSound.play();
     }
   };
 
+
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserGuess(e.target.value);
   };
+
+  const giveHint = () => {
+    if (hintCount < 3) {
+      const nextHintIndex = hintCount;
+      const newHint = hintedName
+
+        .split("")
+        .map((char, i) =>
+          i === nextHintIndex ? pokemon.name[i] : char
+        )
+        .join("");
+      setHintedName(newHint);
+      setHintCount(hintCount + 1);
+
+    } else if (hintCount === 3 && !revealed) {
+      setRevealed(true);
+      setHintCount(hintCount + 1); // Ya no se podrá usar más
+      setMessage(`It was ${pokemon.name}! Score -1`);
+
+      if (score > 0) setScore((prev) => prev - 1);
+      wrongSound.play();
+    }
+  };
+
 
   useEffect(() => {
     getPokemon();
   }, []);
 
+
   return (
     <>
-      <h1>Who's That Pokémon?</h1>
-      <p>Score: <strong>{score}</strong></p>
+      <div className="container">
 
-      <img
-        src={pokemon.image}
-        alt="pokémon"
-        className={revealed ? "revealed" : "silhouette"}
-      />
+        <h1>Who's That Pokémon?</h1>
+        <p>Score: <strong>{score}</strong></p>
 
-      <div>
-        <input
-          type="text"
-          placeholder="The Pokémon is..."
-          value={userGuess}
-          onChange={handleInput}
+        <img
+          src={pokemon.image}
+          alt="pokémon"
+          className={revealed ? "revealed" : "silhouette"}
         />
-      </div>
 
-      <div>
-        <button className="New" onClick={getPokemon}>New Pokémon</button>
-        <button className="Guess" onClick={handleGuess} disabled={revealed}>Guess Pokémon!</button>
-      </div>
+        <p>
+          {revealed
+            ? <>Pokémon: {pokemon.name}</>
+            : <>Hint: {hintedName.split("").join(" ")}</>}
+        </p>
 
-      <p>{message}</p>
+        <div>
+          <input type="text" placeholder="The Pokémon is..." value={userGuess} onChange={handleInput} disabled={revealed}
+          />
+        </div>
+
+        <div>
+          <button className="New" onClick={getPokemon}>New Pokémon</button>
+          <button className="Buttom" onClick={handleGuess} disabled={revealed}>Guess Pokémon!</button>
+          <button className="Buttom" onClick={giveHint} disabled={revealed}>
+            {hintCount < 3 ? `Get Hint (${3 - hintCount} left)` : "Reveal Pokémon"}
+          </button>
+        </div>
+
+        <p>{message}</p>
+      </div>
     </>
   );
 }
