@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getRandomPokemon } from "./services/pokemonapi";
 import "./App.css";
+import "./index.css";
 
 
 function App() {
