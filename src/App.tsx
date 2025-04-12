@@ -69,17 +69,24 @@ function App() {
 
   const giveHint = () => {
     if (hintCount < 3) {
-      const nextHintIndex = hintCount;
-      const newHint = hintedName
+      let unrevealed = [];
+  
+      for (let i = 0; i < pokemon.name.length; i++) {
+        if (hintedName[i] !== pokemon.name[i]) {
+          unrevealed.push(i);
+        }
+      }
 
+      const randomIndex =
+        unrevealed[Math.floor(Math.random() * unrevealed.length)];
+  
+      const newHint = hintedName
         .split("")
-        .map((char, i) =>
-          i === nextHintIndex ? pokemon.name[i] : char
-        )
+        .map((char, i) => (i === randomIndex ? pokemon.name[i] : char))
         .join("");
+
       setHintedName(newHint);
       setHintCount(hintCount + 1);
-
     } else if (hintCount === 3 && !revealed) {
       setRevealed(true);
       setHintCount(hintCount + 1);
@@ -89,7 +96,7 @@ function App() {
       wrongSound.play();
     }
   };
-
+  
 
   useEffect(() => {
     getPokemon();
