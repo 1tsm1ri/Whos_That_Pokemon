@@ -79,7 +79,7 @@ function App() {
 
       const randomIndex =
         unrevealed[Math.floor(Math.random() * unrevealed.length)];
-  
+
       const newHint = hintedName
         .split("")
         .map((char, i) => (i === randomIndex ? pokemon.name[i] : char))
@@ -87,6 +87,7 @@ function App() {
 
       setHintedName(newHint);
       setHintCount(hintCount + 1);
+
     } else if (hintCount === 3 && !revealed) {
       setRevealed(true);
       setHintCount(hintCount + 1);
@@ -122,18 +123,17 @@ function App() {
             : <>Hint: {hintedName.split("").join(" ")}</>}
         </p>
 
-        <div>
-          <input type="text" placeholder="The Pokémon is..." value={userGuess} onChange={handleInput} disabled={revealed}
-          />
-        </div>
+        <form onSubmit={(e) => {e.preventDefault(); handleGuess();}}>
+          <input type="text" value={userGuess} onChange={handleInput} placeholder="Who's that Pokémon?" disabled={revealed}/>
 
-        <div>
-          <button className="New" onClick={getPokemon}>New Pokémon</button>
-          <button className="Buttom" onClick={handleGuess} disabled={revealed}>Guess Pokémon!</button>
-          <button className="Buttom" onClick={giveHint} disabled={revealed}>
-            {hintCount < 3 ? `Get Hint (${3 - hintCount} left)` : "Reveal Pokémon"}
-          </button>
-        </div>
+          <div>
+            <button className="New" type="button" onClick={getPokemon}>New Pokémon</button>
+            <button className="Buttom" type="submit" disabled={revealed}>Guess Pokémon!</button>
+            <button className="Buttom" type="button" onClick={giveHint} disabled={revealed}>
+              {hintCount < 3 ? `Get Hint (${3 - hintCount} left)` : "Reveal Pokémon"}
+            </button>
+          </div>
+        </form>
 
         <p>{message}</p>
       </div>
