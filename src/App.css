@@ -36,7 +36,7 @@ input {
   font-size: 1rem;
   margin-right: 1rem;
   margin-left: 1rem;
-  margin-bottom: 0.1rem;
+  margin-bottom: 1rem;
   width: 16rem;
   transition: border-color 0.3s, box-shadow 0.3s;
   outline: none;
