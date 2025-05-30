@@ -111,11 +111,16 @@ function App() {
         <h1>Who's That Pokémon?</h1>
         <p>Score: <strong>{score}</strong></p>
 
-        <img
-          src={pokemon.image}
-          alt="pokémon"
-          className={revealed ? "revealed" : "silhouette"}
-        />
+        <div className="pokemon-container">
+          <img
+            src={pokemon.image}
+            alt="pokémon"
+            className={revealed ? "revealed" : "silhouette"}
+            draggable="false"
+            onDragStart={(e) => e.preventDefault()}
+            onContextMenu={(e) => e.preventDefault()}
+          />
+        </div>
 
         <p>
           {revealed
